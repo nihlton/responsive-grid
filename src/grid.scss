@@ -1,0 +1,132 @@
+@use "sass:map";
+@use "sass:math";
+
+$mediaSizes: (
+  small: 0px,
+  medium: 768px,
+  large: 1024px,
+  xlarge: 1280px,
+);
+$dimensions: "none", "small", "medium", "large", "xlarge", "xxlarge", "small-", "medium-", "large-", "xlarge-", "xxlarge-";
+$fonts: "xsmall", "small", "medium", "large", "xlarge", "xxlarge";
+
+:host {
+  --dim-none: 0px;
+  --dim-small: 4px;
+  --dim-medium: 8px;
+  --dim-large: 16px;
+  --dim-xlarge: 32px;
+  --dim-xxlarge: 64px;
+  --dim-small-: -4px;
+  --dim-medium-: -8px;
+  --dim-large-: -16px;
+  --dim-xlarge-: -32px;
+  --dim-xxlarge-: -64px;
+  --font-xsmall: 12px;
+  --font-small: 14px;
+  --font-medium: 16px;
+  --font-large: 24px;
+  --font-xlarge: 32px;
+  --font-xxlarge: 40px;
+  display: block;
+  box-sizing: border-box !important;
+}
+
+slot {
+  display: contents !important;
+}
+
+.row {
+  box-sizing: border-box;
+  justify-content: flex-start;
+  gap: var(--gap);
+  --gap: 0px;
+  flex-flow: wrap;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.cell {
+  box-sizing: border-box;
+}
+
+:host([data-cell]) {
+  flex: auto;
+}
+
+:host([data-col-small]),
+:host([data-col-medium]),
+:host([data-col-large]),
+:host([data-col-xlarge]) {
+  flex: 100%;
+  max-width: calc(((var(--columns) / 12) * 100%) - var(--gap) * (calc((12 - var(--columns)) / 12)));
+}
+
+:host([data-offset-small]),
+:host([data-offset-medium]),
+:host([data-offset-large]),
+:host([data-offset-xlarge]) {
+  margin-left: calc(((var(--offset) / 12) * 100%) + var(--gap) * (calc(var(--offset) / 12)));
+}
+
+@each $mediaName, $mediaSize in $mediaSizes {
+  @media (min-width:  #{$mediaSize}) {
+    :host([data-display-#{$mediaName}]) {
+      display: var(--display-#{$mediaName});
+    }
+
+    @each $font in $fonts {
+      :host([data-font-#{$mediaName}="#{$font}"]) {
+        font-size: var(--font-#{$font});
+      }
+    }
+    @each $dimension in $dimensions {
+      .row.gap-#{$mediaName}-#{$dimension} {
+        --gap: var(--dim-#{$dimension});
+      }
+      :host([data-padding-#{$mediaName}="#{$dimension}"]) {
+        padding: var(--dim-#{$dimension});
+      }
+      :host([data-padding-top-#{$mediaName}="#{$dimension}"]) {
+        padding-top: var(--dim-#{$dimension});
+      }
+      :host([data-padding-left-#{$mediaName}="#{$dimension}"]) {
+        padding-left: var(--dim-#{$dimension});
+      }
+      :host([data-padding-bottom-#{$mediaName}="#{$dimension}"]) {
+        padding-bottom: var(--dim-#{$dimension});
+      }
+      :host([data-padding-right-#{$mediaName}="#{$dimension}"]) {
+        padding-right: var(--dim-#{$dimension});
+      }
+      :host([data-margin-#{$mediaName}="#{$dimension}"]) {
+        margin: var(--dim-#{$dimension});
+      }
+      :host([data-margin-top-#{$mediaName}="#{$dimension}"]) {
+        margin-top: var(--dim-#{$dimension});
+      }
+      :host([data-margin-left-#{$mediaName}="#{$dimension}"]) {
+        margin-left: var(--dim-#{$dimension});
+      }
+      :host([data-margin-bottom-#{$mediaName}="#{$dimension}"]) {
+        margin-bottom: var(--dim-#{$dimension});
+      }
+      :host([data-margin-right-#{$mediaName}="#{$dimension}"]) {
+        margin-right: var(--dim-#{$dimension});
+      }
+    }
+
+    @for $i from 12 through 1 {
+      :host([data-order-#{$mediaName}="#{$i}"]) {
+        order: #{$i};
+      }
+      :host([data-col-#{$mediaName}="#{$i}"]) {
+        --columns: #{$i};
+      }
+      :host([data-offset-#{$mediaName}="#{$i}"]) {
+        --offset: #{$i};
+      }
+    }
+  }
+}

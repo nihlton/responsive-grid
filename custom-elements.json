@@ -1,0 +1,273 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridElement",
+          "declaration": {
+            "name": "GridElement",
+            "module": "src/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ResponsiveElement",
+          "declaration": {
+            "name": "ResponsiveElement",
+            "module": "src/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/grid-element.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridElement",
+          "members": [
+            {
+              "kind": "method",
+              "name": "render"
+            },
+            {
+              "kind": "field",
+              "name": "adoptedStyleSheets",
+              "type": {
+                "text": "array"
+              },
+              "default": "[sheet]"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's display value for each breakpoint",
+              "name": "display"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's padding for each breakpoint (Dimension values)",
+              "name": "padding"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's column offset for each breakpoint  (Integers)",
+              "name": "offset"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's flex order for each breakpoint (Integers)",
+              "name": "order"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's font-size for each breakpoint (Font values)",
+              "name": "font"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's column spans for each breakpoint  (Integers)",
+              "name": "col"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's flex gap for each breakpoint (Dimension values)",
+              "name": "gap"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "r-grid",
+          "customElement": true,
+          "summary": "attributes are space-separated values for each break-point\r\n- Dimension values: none, small, medium, large, xlarge, xxlarge, small-, medium-, large-, xlarge-, xxlarge-\r\n- Font values: xsmall, small, medium, large, xlarge, xxlarge\r\n- ex:\r\n- font=\"medium large xlarge\"\r\n- col=\"12 6 4\""
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridElement",
+          "declaration": {
+            "name": "GridElement",
+            "module": "src/components/grid-element.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "r-grid",
+          "declaration": {
+            "name": "GridElement",
+            "module": "src/components/grid-element.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/resonsive-element.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ResponsiveElement",
+          "members": [
+            {
+              "kind": "field",
+              "name": "attr",
+              "type": {
+                "text": "Partial<ElemAttributeValues>"
+              },
+              "privacy": "private",
+              "default": "{}"
+            },
+            {
+              "kind": "method",
+              "name": "render"
+            },
+            {
+              "kind": "field",
+              "name": "adoptedStyleSheets",
+              "type": {
+                "text": "array"
+              },
+              "default": "[sheet]"
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's display value for each breakpoint, space-separated",
+              "name": "display"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's font-size for each breakpoint, space-separated (Font values)",
+              "name": "font"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's padding for each breakpoint, space-separated (Dimension values)",
+              "name": "padding"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's margin for each breakpoint, space-separated  (Integers)",
+              "name": "margin"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's margin-top for each breakpoint, space-separated (Dimension values)",
+              "name": "margin-top"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's margin-right for each breakpoint, space-separated (Dimension values)",
+              "name": "margin-right"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's margin-bottom for each breakpoint, space-separated (Dimension values)",
+              "name": "margin-bottom"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's margin-left for each breakpoint, space-separated (Dimension values)",
+              "name": "margin-left"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's padding-top for each breakpoint, space-separated (Dimension values)",
+              "name": "padding-top"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's padding-right for each breakpoint, space-separated (Dimension values)",
+              "name": "padding-right"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's padding-bottom for each breakpoint, space-separated (Dimension values)",
+              "name": "padding-bottom"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's padding-left for each breakpoint, space-separated (Dimension values)",
+              "name": "padding-left"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "r-element",
+          "customElement": true,
+          "summary": "attributes are space-separated values for each break-point\r\n- Dimension values: none, small, medium, large, xlarge, xxlarge, small-, medium-, large-, xlarge-, xxlarge-\r\n- Font values: xsmall, small, medium, large, xlarge, xxlarge\r\n- ex:\r\n- font=\"medium large xlarge\"\r\n- col=\"12 6 4\""
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ResponsiveElement",
+          "declaration": {
+            "name": "ResponsiveElement",
+            "module": "src/components/resonsive-element.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "r-element",
+          "declaration": {
+            "name": "ResponsiveElement",
+            "module": "src/components/resonsive-element.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

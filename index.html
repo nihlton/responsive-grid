@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>layout-grid</title>
+
+    <style>
+      html {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+      }
+
+      body {
+        max-width: 70rem;
+        padding: 3em 10vw;
+        margin: auto;
+      }
+      h1 {
+        margin: 0;
+      }
+
+      p {
+        margin: 0 0 1em;
+
+        &:last-child {
+          margin: 0;
+        }
+      }
+
+      hr {
+        border: none;
+        height: 1px;
+        margin: 2rem 0;
+        background: #aaa;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      .demo-grid {
+        r-grid:has(> r-grid) {
+          background: none;
+          outline: none;
+        }
+
+        r-grid[data-cell]:not([data-row]) {
+          background: rgba(0, 0, 0, 0.05);
+          outline: 1px dotted #0004;
+          outline-offset: -1px;
+          min-height: 32px;
+        }
+      }
+      .view {
+        position: fixed;
+        bottom: 0px;
+        right: 0px;
+        padding: 0.25em 1em 0.25em;
+        border-radius: 1em 0 0 0;
+        background: white;
+        box-shadow: 0 0 0 3px #0003;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="view">
+        <r-element display="block none">mobile</r-element>
+        <r-element display="none block none">tablet</r-element>
+        <r-element display="none none block none">desktop</r-element>
+      </div>
+
+      <div id="article-demo">
+        <r-grid gap="large xlarge xlarge">
+          <r-grid col="12 7 6" offset="0 5 6">
+            <h1><r-element font="large xlarge xxlarge" margin-bottom="medium- large- large-">Headline</r-element></h1>
+          </r-grid>
+          <r-grid col="12 5 6" role="figure" aria-labelledby="caption">
+            <img src="https://picsum.photos/id/555/640/400" />
+            <r-element id="caption" font="xsmall small" style="text-align: right">figure caption</r-element>
+          </r-grid>
+          <r-grid col="12 7 6" gap="large large xlarge">
+            <r-grid order="1 2" gap="medium large large">
+              <r-grid col="3 3 2"><img src="https://picsum.photos/id/557/640/400" /></r-grid>
+              <r-grid col="3 3 2"><img src="https://picsum.photos/id/666/640/400" /></r-grid>
+              <r-grid col="3 3 2"><img src="https://picsum.photos/id/62/640/400" /></r-grid>
+              <r-grid col="3 3 2"><img src="https://picsum.photos/id/112/640/400" /></r-grid>
+              <r-grid col="3 3 2"><img src="https://picsum.photos/id/179/640/400" /></r-grid>
+              <r-grid col="3 3 2"><img src="https://picsum.photos/id/221/640/400" /></r-grid>
+            </r-grid>
+            <r-grid order="2 1" font="small medium medium">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut finibus turpis a neque consequat, et pretium eros tempor. Praesent orci
+                massa, tempus ut est id, sollicitudin interdum diam. Curabitur sit amet massa ornare, ornare arcu et, porta lectus. Maecenas dignissim
+                elementum tellus. Sed sit amet pellentesque eros. Nunc id purus odio. In hac habitasse platea dictumst. Mauris vel ligula feugiat,
+                pretium leo eu, gravida augue.
+              </p>
+              <r-element display="none block">
+                Vivamus iaculis enim at posuere maximus. Curabitur a sem vel justo pharetra efficitur non sit amet tellus. Vestibulum bibendum erat
+                est, vitae congue orci accumsan ut. Duis vitae leo et nunc maximus elementum id non turpis. Pellentesque lorem quam, cursus vel
+                ultricies sed, ornare quis nulla.
+              </r-element>
+              <r-element display="block none">
+                <a href="#test"> read more </a>
+              </r-element>
+            </r-grid>
+          </r-grid>
+        </r-grid>
+
+        <hr />
+
+        <r-grid gap="large xlarge xlarge">
+          <r-grid col="12 9" offset="0 3">
+            <h1><r-element font="large xlarge xxlarge" margin-bottom="medium- large- large-">Headline</r-element></h1>
+          </r-grid>
+          <r-grid col="12 3" style="text-align: right">
+            <r-grid display="none block"> Jan 1st, 2026<br />2:24 PM </r-grid>
+            <r-grid display="block none"> January 1, 2026, 2:24 PM </r-grid>
+          </r-grid>
+          <r-grid col="12 9" gap="medium large large" font="small medium medium">
+            <r-grid>
+              <img src="https://picsum.photos/id/352/960/600" />
+            </r-grid>
+            <r-grid>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut finibus turpis a neque consequat, et pretium eros tempor. Praesent orci
+                massa, tempus ut est id, sollicitudin interdum diam. Curabitur sit amet massa ornare, ornare arcu et, porta lectus. Maecenas dignissim
+                elementum tellus. Sed sit amet pellentesque eros. Nunc id purus odio. In hac habitasse platea dictumst. Mauris vel ligula feugiat,
+                pretium leo eu, gravida augue.
+              </p>
+            </r-grid>
+            <r-grid display="none block">
+              <p>
+                Vivamus iaculis enim at posuere maximus. Curabitur a sem vel justo pharetra efficitur non sit amet tellus. Vestibulum bibendum erat
+                est, vitae congue orci accumsan ut. Duis vitae leo et nunc maximus elementum id non turpis. Pellentesque lorem quam, cursus vel
+                ultricies sed, ornare quis nulla.
+              </p>
+            </r-grid>
+            <r-grid display="block none">
+              <a href="#test"> read more </a>
+            </r-grid>
+          </r-grid>
+        </r-grid>
+      </div>
+
+      <hr />
+
+      <div class="demo-grid">
+        <r-grid gap="large xlarge xlarge">
+          <r-grid col="12 7 6" offset="0 5 6" padding="medium" font="large xlarge xxlarge">Headline</r-grid>
+          <r-grid col="12 5 6" gap="medium">
+            <r-grid col="12" style="aspect-ratio: 1.6" padding="medium">image asset</r-grid>
+            <r-grid col="12" padding="medium" font="small">image caption</r-grid>
+          </r-grid>
+          <r-grid col="12 7 6" gap="large  ">
+            <r-grid col="12" order="1 2" gap="medium large large">
+              <r-grid col="3 3 2" style="aspect-ratio: 1.6" padding="medium">thumb</r-grid>
+              <r-grid col="3 3 2" style="aspect-ratio: 1.6" padding="medium">thumb</r-grid>
+              <r-grid col="3 3 2" style="aspect-ratio: 1.6" padding="medium">thumb</r-grid>
+              <r-grid col="3 3 2" style="aspect-ratio: 1.6" padding="medium">thumb</r-grid>
+              <r-grid col="3 3 2" style="aspect-ratio: 1.6" padding="medium">thumb</r-grid>
+              <r-grid col="3 3 2" style="aspect-ratio: 1.6" padding="medium">thumb</r-grid>
+            </r-grid>
+            <r-grid col="12" order="2 1" gap="medium large large" font="small medium medium">
+              <r-grid col="12" style="height: 12em" padding="medium">text copy. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</r-grid>
+              <r-grid col="12" display="none block" style="height: 6em" padding="medium">
+                'below the fold' copy. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </r-grid>
+            </r-grid>
+          </r-grid>
+        </r-grid>
+
+        <hr />
+
+        <r-grid gap="large xlarge xlarge">
+          <r-grid col="12 9" offset="0 3" padding="medium" font="large xlarge xxlarge">headline</r-grid>
+          <r-grid col="12 3"><r-grid padding="medium">date line</r-grid></r-grid>
+          <r-grid col="12 9" gap="large">
+            <r-grid col="12" style="aspect-ratio: 1.6" padding="medium">image asset</r-grid>
+            <r-grid col="12" style="height: 12em" padding="medium" font="small medium medium">
+              text copy. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </r-grid>
+            <r-grid col="12" display="none block" style="height: 6em" padding="medium">
+              'below the fold' copy. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </r-grid>
+          </r-grid>
+        </r-grid>
+
+        <hr />
+
+        <r-grid gap="small medium large" padding="medium">
+          <r-grid col="12 8 3"></r-grid>
+          <r-grid col="12 4 3"></r-grid>
+          <r-grid col="12 8 3"></r-grid>
+          <r-grid col="12 4 3"></r-grid>
+        </r-grid>
+
+        <hr />
+
+        <r-grid gap="small medium large" padding="medium">
+          <r-grid col="4" padding="medium" display="block none" order="1 1 2">small gap</r-grid>
+          <r-grid col="4" padding="medium" display="none block" order="2 2 2">medium gap</r-grid>
+          <r-grid col="4" padding="medium" display="none none block" order="3 3 3">large gap</r-grid>
+          <r-grid col="4" padding="medium" order="2 1 1"></r-grid>
+          <r-grid col="4" padding="medium" order="3 3 2"></r-grid>
+        </r-grid>
+
+        <hr />
+
+        <r-grid gap="small medium large" padding="medium">
+          <r-grid col="4" padding="medium large xlarge" display="block none" order="1 1 2">medium padding</r-grid>
+          <r-grid col="4" padding="medium large xlarge" display="none block none" order="2 2 2">large padding</r-grid>
+          <r-grid col="4" padding="medium large xlarge" display="none none block" order="3 3 3">xlarge padding</r-grid>
+          <r-grid col="4" padding="medium large xlarge" order="2 1 1"></r-grid>
+          <r-grid col="4" padding="medium large xlarge" order="3 3 2"></r-grid>
+        </r-grid>
+
+        <hr />
+        <r-grid gap="medium" padding="medium">
+          <r-grid col="12 4" order="3 2 1" padding="medium" style="background: #f3ffbf">
+            <r-element display="none block">small last</r-element>
+            <r-element display="block none"><strong>small last</strong></r-element>
+            <r-element display="block none block">medium second</r-element>
+            <r-element display="none block none"><strong>medium second</strong></r-element>
+            <r-element display="block block none">large first</r-element>
+            <r-element display="none none block"><strong>large first</strong></r-element>
+          </r-grid>
+          <r-grid col="12 4" order="2 1 3" padding="medium" style="background: #bfeeff">
+            <r-element display="none block">small second</r-element>
+            <r-element display="block none"><strong>small second</strong></r-element>
+            <r-element display="block none block">medium first</r-element>
+            <r-element display="none block none"><strong>medium first</strong></r-element>
+            <r-element display="block block none">large last</r-element>
+            <r-element display="none none block"><strong>large last</strong></r-element>
+          </r-grid>
+          <r-grid col="12 4" order="1 3 2" padding="medium" style="background: #ffbff9">
+            <r-element display="none block">small first</r-element>
+            <r-element display="block none"><strong>small first</strong></r-element>
+            <r-element display="block none block">medium last</r-element>
+            <r-element display="none block none"><strong>medium last</strong></r-element>
+            <r-element display="block block none">large second</r-element>
+            <r-element display="none none block"><strong>large second</strong></r-element>
+          </r-grid>
+          <r-grid col="12" display="block none none" padding="medium" style="background: #ffbff9">visible for small media</r-grid>
+          <r-grid col="12" display="none block none" padding="medium" style="background: #bfeeff">visible for medium media</r-grid>
+          <r-grid col="12" display="none none block" padding="medium" style="background: #f3ffbf">visible for large media</r-grid>
+        </r-grid>
+
+        <hr />
+
+        <r-grid gap="medium" padding="medium">
+          <r-grid col="3" offset="3"></r-grid>
+          <r-grid col="3">&nbsp;</r-grid>
+          <r-grid col="3">&nbsp;</r-grid>
+
+          <r-grid col="3" offset="6"></r-grid>
+          <r-grid col="3">&nbsp;</r-grid>
+
+          <r-grid col="3" offset="9">&nbsp;</r-grid>
+        </r-grid>
+        <hr />
+        <r-grid gap="medium" padding="medium">
+          <r-grid col="4 2">&nbsp;</r-grid>
+          <r-grid col="4 2">&nbsp;</r-grid>
+          <r-grid col="4 2">&nbsp;</r-grid>
+          <r-grid col="6 3">&nbsp;</r-grid>
+          <r-grid col="6 3">&nbsp;</r-grid>
+          <r-grid col="2 1">&nbsp;</r-grid>
+          <r-grid col="4 2">&nbsp;</r-grid>
+          <r-grid col="6 3">&nbsp;</r-grid>
+          <r-grid col="12 6">&nbsp;</r-grid>
+          <r-grid col="12 6 3">&nbsp;</r-grid>
+          <r-grid col="12 6 3">&nbsp;</r-grid>
+          <r-grid col="12 6 3">&nbsp;</r-grid>
+          <r-grid col="12 6 3">&nbsp;</r-grid>
+        </r-grid>
+
+        <hr />
+
+        <r-grid gap="small medium xlarge" padding="medium large xlarge">
+          <r-grid col="12 6 4" padding="medium">test1</r-grid>
+          <r-grid col="6 3 4" padding="medium medium xlarge">test2</r-grid>
+          <r-grid col="6 3 4" padding="medium">test3</r-grid>
+        </r-grid>
+      </div>
+    </div>
+    <script type="module" src="/src/index.ts"></script>
+  </body>
+</html>

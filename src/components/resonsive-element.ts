@@ -5,6 +5,7 @@ import {
   isElemAttribute,
   ObservedElemAttributes as Attributes,
   getHostCSS,
+  elmAttrShort,
 } from '../util';
 import type { ElemAttributeValues } from '../util';
 
@@ -30,7 +31,7 @@ import type { ElemAttributeValues } from '../util';
  * - font="medium large xlarge"
  * - col="12 6 4"
  *
- * @tag r-element
+ * @tag r-elm
  */
 export class ResponsiveElement extends HTMLElement {
   static observedAttributes = Attributes;
@@ -54,7 +55,7 @@ export class ResponsiveElement extends HTMLElement {
   }
 
   render() {
-    const hostAttributes = getHostAttributes(Attributes, this.attr, getValues);
+    const hostAttributes = getHostAttributes(Attributes, this.attr, getValues, elmAttrShort);
     const hostCSS = getHostCSS(['display', 'text-align'], this.attr, getValues);
 
     hostCSS.forEach(([attr, value]) => {
@@ -71,4 +72,4 @@ export class ResponsiveElement extends HTMLElement {
   }
 }
 
-customElements.define('r-element', ResponsiveElement);
+customElements.define('r-elm', ResponsiveElement);

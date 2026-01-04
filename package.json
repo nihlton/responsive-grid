@@ -1,7 +1,7 @@
 {
   "name": "rezel",
   "description": "custom elements with responsive attributes",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "type": "module",
   "files": [
     "dist"
@@ -10,7 +10,8 @@
   "module": "./dist/r-grid.es.js",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build-manifest": "custom-elements-manifest analyze",
+    "build": "tsc && npm run build-manifest && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {

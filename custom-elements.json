@@ -59,6 +59,20 @@
               "type": {
                 "text": "string"
               },
+              "description": "skip the given columns before the element for each breakpoint  (Integers)",
+              "name": "skip-before"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "skip the given columns after the element for each breakpoint  (Integers)",
+              "name": "skip-after"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
               "description": "set element's display value for each breakpoint",
               "name": "display"
             },
@@ -68,13 +82,6 @@
               },
               "description": "set element's padding for each breakpoint (Dimension values)",
               "name": "padding"
-            },
-            {
-              "type": {
-                "text": "string"
-              },
-              "description": "set element's column offset for each breakpoint  (Integers)",
-              "name": "offset"
             },
             {
               "type": {
@@ -259,7 +266,7 @@
           "superclass": {
             "name": "HTMLElement"
           },
-          "tagName": "r-element",
+          "tagName": "r-elm",
           "customElement": true,
           "summary": "attributes are space-separated values for each break-point\r\n- Dimension values: none, small, medium, large, xlarge, xxlarge, small-, medium-, large-, xlarge-, xxlarge-\r\n- Font values: xsmall, small, medium, large, xlarge, xxlarge\r\n- ex:\r\n- font=\"medium large xlarge\"\r\n- col=\"12 6 4\""
         }
@@ -275,7 +282,7 @@
         },
         {
           "kind": "custom-element-definition",
-          "name": "r-element",
+          "name": "r-elm",
           "declaration": {
             "name": "ResponsiveElement",
             "module": "src/components/resonsive-element.ts"

@@ -1,8 +1,6 @@
 type AttrValues<K extends string> = Partial<Record<K, string | undefined>>;
 type AttrValidations<K extends string> = Record<K, 'boolean' | ((val: string) => string | null)>;
 
-export const ContainerClass = 'grid-element' as const;
-
 export const GlobalValues = ['inherit', 'initial', 'revert', 'revert-layer', 'unset'] as const;
 
 export const ObservedElemAttributes = [
@@ -27,7 +25,8 @@ export const ObservedGridAttributes = [
   'display',
   'text-align',
   'order',
-  'offset',
+  'skip-before',
+  'skip-after',
   'gap',
   'padding',
   'font',
@@ -87,40 +86,33 @@ export const isElemAttribute = (name: string): name is ObservedElemAttribute =>
 export const isGridAttribute = (name: string): name is ObservedGridAttribute =>
   ObservedGridAttributes.includes(name as ObservedGridAttribute);
 
-export const isDimensionSize = (size: string): size is DimensionSize =>
-  DimensionSizes.includes(size as DimensionSize);
-
-export const isTextAlignValue = (value: string): value is TextAlignValue =>
-  TextAlignValues.includes(value as TextAlignValue);
-
-export const isDisplayValue = (value: string): value is DisplayValue =>
-  DisplayValues.includes(value as DisplayValue);
-
-export const isFontSize = (size: string): size is FontSize => FontSizes.includes(size as FontSize);
-
 const getValidNumber = (val: string): string | null => {
   const value = parseInt(val.trim());
-  return value ? String(value) : null;
+  return value !== undefined ? String(value) : null;
 };
 
 const getValidDisplay = (val: string): string | null => {
   const value = val.trim().toLowerCase();
-  return isDisplayValue(value) ? value : null;
+  return DisplayValues.includes(value as DisplayValue) ? (value as DisplayValue) : null;
 };
 
-const getValidDimension = (val: string): DimensionSize | null => {
+const getValidDimension = (val: string): string | null => {
   const value = val.trim().toLowerCase();
-  return isDimensionSize(value) ? value : null;
+  return DimensionSizes.includes(value as DimensionSize)
+    ? String(DimensionSizes.indexOf(value as DimensionSize))
+    : null;
 };
 
 const getValidTextAlign = (val: string): TextAlignValue | null => {
   const value = val.trim().toLowerCase();
-  return isTextAlignValue(value) ? value : null;
+  return TextAlignValues.includes(value as TextAlignValue) ? (value as TextAlignValue) : null;
 };
 
-const getValidFont = (val: string): FontSize | null => {
+const getValidFont = (val: string): string | null => {
   const value = val.trim().toLowerCase();
-  return isFontSize(value) ? value : null;
+  return FontSizes.includes(value as FontSize)
+    ? String(FontSizes.indexOf(value as FontSize))
+    : null;
 };
 
 export type GridAttributeValues = AttrValues<ObservedGridAttribute>;
@@ -130,11 +122,12 @@ export const getGridAttributeValue: AttrValidations<ObservedGridAttribute> = {
   row: 'boolean',
   cell: 'boolean',
   'text-align': getValidTextAlign,
+  'skip-before': getValidNumber,
+  'skip-after': getValidNumber,
   col: getValidNumber,
   gap: getValidDimension,
   font: getValidFont,
   order: getValidNumber,
-  offset: getValidNumber,
   display: getValidDisplay,
   padding: getValidDimension,
 };
@@ -153,6 +146,36 @@ export const getElemAttributeValue: AttrValidations<ObservedElemAttribute> = {
   'padding-right': getValidDimension,
   'padding-bottom': getValidDimension,
   'padding-left': getValidDimension,
+};
+
+export const gridAttrShort: Record<ObservedGridAttribute, string> = {
+  font: 'f',
+  padding: 'p',
+  display: 'd',
+  row: 'row',
+  cell: 'cell',
+  col: 'c',
+  gap: 'g',
+  order: 'or',
+  'skip-before': 'sb',
+  'skip-after': 'sa',
+  'text-align': 'ta',
+};
+
+export const elmAttrShort: Record<ObservedElemAttribute, string> = {
+  font: 'f',
+  margin: 'm',
+  padding: 'p',
+  display: 'd',
+  'text-align': 'ta',
+  'margin-top': 'mt',
+  'margin-right': 'mr',
+  'margin-bottom': 'mb',
+  'margin-left': 'ml',
+  'padding-top': 'pt',
+  'padding-right': 'pr',
+  'padding-bottom': 'pb',
+  'padding-left': 'pl',
 };
 
 export const getClasses = <K extends string>(
@@ -186,25 +209,26 @@ export const getHostAttributes = <K extends string>(
   attrNames: readonly K[],
   attrs: AttrValues<K>,
   validations: AttrValidations<K>,
+  short: Record<K, string>,
 ) => {
   const hostAttributes: Record<string, string | undefined> = {};
 
   for (const attr of attrNames) {
-    MediaSizes.forEach((mediaSize) => {
-      hostAttributes[`data-${attr}-${mediaSize}`] = undefined;
+    MediaSizes.forEach((_mediaSize, i) => {
+      hostAttributes[`r-${short[attr]}${i + 1}`] = undefined;
     });
 
     if (attrs[attr] !== undefined) {
       const validation = validations[attr];
       if (validation === 'boolean') {
-        hostAttributes[`data-${attr}`] = attr;
+        hostAttributes[`r-${attr}`] = attr;
       } else {
         const values = attrs[attr].split(' ').filter(Boolean);
         values.forEach((val, i) => {
           const mediaSize = MediaSizes[i];
           const value = validation(val);
           if (mediaSize && value) {
-            hostAttributes[`data-${attr}-${mediaSize}`] = value;
+            hostAttributes[`r-${short[attr]}${i + 1}`] = value;
           }
         });
       }

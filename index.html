@@ -4,11 +4,23 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Merriweather:opsz,wght@18..144,800&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      blocking="render"
+      rel="stylesheet"
+    />
     <title>layout-grid</title>
 
     <style>
       html {
+        --bg: #fefefe;
+        --text: #222;
+        background-color: var(--bg);
+        color: var(--text);
         font-family:
+          Open Sans,
           -apple-system,
           BlinkMacSystemFont,
           Segoe UI,
@@ -39,7 +51,7 @@
         border: none;
         height: 1px;
         margin: 3rem 0;
-        background: #ccc;
+        background: color-mix(in srgb, var(--text) 20%, transparent);
       }
 
       img {
@@ -52,9 +64,9 @@
           outline: none;
         }
 
-        r-grid[data-cell]:not([data-row]) {
-          background: rgba(0, 0, 0, 0.05);
-          outline: 1px dotted #0004;
+        r-grid[r-cell]:not([r-row]) {
+          background: #f6f6f6;
+          outline: 1px dashed #0002;
           outline-offset: -1px;
           min-height: 32px;
         }
@@ -65,13 +77,27 @@
         right: 0px;
         padding: 0.25em 1em 0.25em;
         border-radius: 1em 0 0 0;
-        background: white;
-        box-shadow: 0 0 0 3px #0003;
+        background: var(--bg);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--text) 20%, transparent);
       }
 
       code {
-        background: #f6f6f6;
-        padding: 0.25em 0.5em;
+        background: #f2f1f0;
+        padding: 0.125em 0.5em;
+        font-family: 'Google Sans Code', monospace;
+        font-size: 0.9em;
+        line-height: 1.4;
+        border-radius: 0.25em;
+      }
+
+      ul {
+        list-style-type: '-';
+        padding-left: 1em;
+
+        li {
+          padding: 0 0 0 0.5em;
+          margin: 0.25em 0;
+        }
       }
 
       pre {
@@ -82,41 +108,64 @@
         code.hljs {
           padding: 2em !important;
           border-radius: 1em;
-
           scrollbar-color: #0001 transparent;
           scrollbar-width: thin;
         }
       }
 
-      .blue-box {
-        background: #cee4f5;
-        outline: 1px solid #8dbce0;
-        min-height: 32px;
+      :root {
+        --blue: #cee4f5;
+        --green: #e9f5ce;
+        --red: #f5cedd;
+        --gray: #f6f6f6;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html {
+          --bg: #222;
+          --text: #fefefe;
+
+          .demo-grid {
+            r-grid[r-cell]:not([r-row]) {
+              background: #363433;
+              outline: 1px dashed #fff2;
+            }
+          }
+          code {
+            background: #363433;
+          }
+        }
+        :root {
+          --blue: #1d3140;
+          --green: #35401d;
+          --red: #401d2a;
+          --gray: #363433;
+        }
       }
     </style>
   </head>
   <body>
     <div class="view">
-      <r-element display="block none">mobile</r-element>
-      <r-element display="none block none">tablet</r-element>
-      <r-element display="none none block none">desktop</r-element>
-      <r-element display="none none none block">xl-desktop</r-element>
+      <r-elm display="block none">mobile</r-elm>
+      <r-elm display="none block none">tablet</r-elm>
+      <r-elm display="none none block none">desktop</r-elm>
+      <r-elm display="none none none block">xl-desktop</r-elm>
     </div>
 
     <h1>
-      <r-element font="xlarge xxlarge xxlarge" margin-bottom="medium large large"
-        >rez'el (responsive element) documentation</r-element
+      <r-elm font="xlarge xxlarge xxlarge" margin-bottom="large large large"
+        >rez'el (responsive element) documentation</r-elm
       >
     </h1>
 
     <div class="demo-grid">
-      <r-element margin-bottom="xlarge">
+      <r-elm margin-bottom="xlarge">
         rez'el offers two custom-elements, <code>&lt;r-grid&gt;</code> and
-        <code>&lt;r-element&gt;</code> which switch between provided values in response to the
-        user's @media.
-      </r-element>
+        <code>&lt;r-elm&gt;</code> which switch between provided values in response to the user's
+        @media.
+      </r-elm>
 
-      <r-element margin-bottom="xlarge">
+      <r-elm margin-bottom="xlarge">
         <h2><code>&lt;r-grid&gt;</code></h2>
 
         <p>
@@ -131,80 +180,79 @@
           </r-grid>
           <r-grid gap="large" padding="medium">
             <r-grid col="12 12 6" padding="medium">while these cells have</r-grid>
-            <r-grid col="12 4 3" padding="medium">specific widths at </r-grid>
-            <r-grid col="6 4 1" padding="medium">each</r-grid>
-            <r-grid col="6 4 2" padding="medium">break-point</r-grid>
+            <r-grid col="12 6 3" padding="medium">specific widths at </r-grid>
+            <r-grid col="4 3 1" padding="medium">each</r-grid>
+            <r-grid col="8 3 2" padding="medium">break-point</r-grid>
           </r-grid>
         </div>
-      </r-element>
+      </r-elm>
 
-      <r-element margin-bottom="xlarge">
-        <h2><code>&lt;r-element&gt;</code></h2>
+      <r-elm margin-bottom="xlarge">
+        <h2><code>&lt;r-elm&gt;</code></h2>
 
         <p>
           This utility element enables you to apply specific style configurations at each breakpoint
         </p>
 
-        <r-grid class="demo-source">
-          <r-grid>
-            <r-element class="blue-box" margin="medium large xlarge" padding="xlarge large medium">
-              <r-element font="small large xxlarge">text copy</r-element>
-            </r-element>
-          </r-grid>
-        </r-grid>
-      </r-element>
+        <div class="demo-source">
+          <r-elm
+            font="small large xxlarge"
+            padding="small large xxlarge"
+            style="background: var(--blue)"
+            >text copy</r-elm
+          >
+        </div>
+      </r-elm>
 
       <h2>resonsive attributes</h2>
-      <r-element margin-bottom="xlarge">
+      <r-elm margin-bottom="xlarge">
         for any supported attribute, one may provide a value for each break-point
         <code>mobile</code> <code>tablet</code> <code>desktop</code> <code>xl-desktop</code>.
         Omitted breakpoints will inherit from the last defined break-point.
-      </r-element>
-      <r-element margin-bottom="xlarge">
+      </r-elm>
+      <r-elm margin-bottom="xlarge">
         examples:<br />
-        <code>padding="medium" // medium padding for all break-points</code><br />
-        <code
-          >margin-bottom="medium large" // medium bottom-margin on mobile, large for all
-          others</code
-        ><br />
-      </r-element>
+        <ul>
+          <li><code>padding="medium"</code> medium padding for all break-points</li>
+          <li>
+            <code>margin-bottom="medium large"</code> medium bottom-margin on mobile, large for all
+            others
+          </li>
+        </ul>
+      </r-elm>
 
-      <r-element margin-bottom="xlarge">
+      <r-elm margin-bottom="xlarge">
         <h3><code>&lt;r-grid&gt;</code> attributes</h3>
         <ul>
+          <li><code>skip-before</code> skip the given columns before the element</li>
+          <li><code>skip-after</code> skip the given columns after the element</li>
           <li><code>text-align</code> Any valid CSS text-align value</li>
           <li><code>display</code> Any valid CSS Display value (excluding multi-keyword syntax)</li>
-          <li><code>padding</code> Dimensional values*</li>
-          <li><code>offset</code> Number of columns to shift right</li>
+          <li><code>padding</code> Dimensional-value*. Cannot accept shorthand</li>
           <li><code>order</code> Display order</li>
-          <li><code>font</code> Font values*</li>
+          <li><code>font</code> Font size in font-value*</li>
           <li><code>col</code> Number of columns to span</li>
           <li><code>gap</code> Space between elements, in Dimensional values</li>
         </ul>
-      </r-element>
+      </r-elm>
 
-      <r-element margin-bottom="xlarge">
-        <h3><code>&lt;r-element&gt;</code> attributes</h3>
+      <r-elm margin-bottom="xlarge">
+        <h3><code>&lt;r-elm&gt;</code> attributes</h3>
         <ul>
           <li><code>text-align</code> Any valid CSS text-align value</li>
           <li>
             <code>display</code> Any valid CSS Display value, (excluding multi-keyword syntax)
           </li>
-          <li><code>padding</code> Dimensional values*</li>
-          <li><code>offset</code> Number of columns to shift right</li>
-          <li><code>margin</code> Dimensional values*</li>
-          <li><code>font</code> Font values*</li>
-          <li><code>margin-[side]</code> top, left, bottom, right. Dimensional values*</li>
-          <li><code>padding-[side]</code> top, left, bottom, right. Dimensional values*</li>
+          <li><code>padding</code> Dimensional-value*. Cannot accept shorthand</li>
+          <li><code>margin</code> Dimensional-value*. Cannot accept shorthand</li>
+          <li><code>font</code> Font size in font-value*</li>
+          <li><code>margin-[side]</code> top, left, bottom, right. dimensional-value*</li>
+          <li><code>padding-[side]</code> top, left, bottom, right. dimensional-value*</li>
         </ul>
-      </r-element>
+      </r-elm>
 
-      <r-element margin-bottom="xlarge">
-        <h3>Dimensional values</h3>
-        <em
-          >Note: Each non-zero value has <code>[value]-</code> counter-part with a negative
-          value.</em
-        >
+      <r-elm margin-bottom="xlarge">
+        <h3>Dimensional-values</h3>
         <ul>
           <li><code>none</code> 0px</li>
           <li><code>small</code> 4px</li>
@@ -213,10 +261,10 @@
           <li><code>xlarge</code> 32px</li>
           <li><code>xxlarge</code> 64px</li>
         </ul>
-      </r-element>
+      </r-elm>
 
-      <r-element margin-bottom="xlarge">
-        <h3>Font values</h3>
+      <r-elm margin-bottom="xlarge">
+        <h3>Font-values</h3>
         <ul>
           <li><code>xsmall</code> 12px</li>
           <li><code>small</code> 14px</li>
@@ -225,45 +273,52 @@
           <li><code>xlarge</code> 32px</li>
           <li><code>xxlarge</code> 40px</li>
         </ul>
-      </r-element>
+      </r-elm>
 
-      <r-element margin-bottom="xlarge">
-        <h3>Note: Dimensional and Font values can be overwritten</h3>
+      <r-elm margin-bottom="xlarge">
+        <h3>Note: You can customize Dimensional and Font values</h3>
         <p>
           in your css, add definitions for <code>--grid-dim-[value]</code>, or
           <code>--grid-font-[value]</code>
         </p>
         <pre><code class="language=css">:root {
-  --grid-dim-xxlarge: 48px;
-  --grid-dim-xxlarge-: -48px;  // negative counter-part
-  --grid-font-xsmall: 14px;
-  --grid-font-small: 18px;
-  --grid-font-medium: 20px;
+  --grid-dim-none: 0px;
+  --grid-dim-small: 4px;
+  --grid-dim-medium: 8px;
+  --grid-dim-large: 16px;
+  --grid-dim-xlarge: 32px;
+  --grid-dim-xxlarge: 64px;
+  --grid-font-xsmall: 12px;
+  --grid-font-small: 14px;
+  --grid-font-medium: 16px;
+  --grid-font-large: 24px;
+  --grid-font-xlarge: 32px;
+  --grid-font-xxlarge: 40px;
 }</code></pre>
-      </r-element>
+      </r-elm>
 
       <hr />
 
       <h2>responsive display</h2>
 
-      <r-element margin-bottom="xlarge">
+      <r-elm margin-bottom="xlarge">
         examples:<br />
         <code>display="block none" // display mobile only</code><br />
         <code>display="block none block" // hide from tablet</code><br />
-      </r-element>
+      </r-elm>
 
       <div class="demo-source">
-        <r-element display="block none" padding="large" style="background: #ffbff9"
-          >visible for small media</r-element
+        <r-elm display="block none" padding="large" style="background: var(--red)"
+          >visible for small media</r-elm
         >
-        <r-element display="none block none" padding="large" style="background: #bfeeff"
-          >visible for medium media</r-element
+        <r-elm display="none block none" padding="large" style="background: var(--blue)"
+          >visible for medium media</r-elm
         >
-        <r-element display="none none block none" padding="large" style="background: #f3ffbf"
-          >visible for large media</r-element
+        <r-elm display="none none block none" padding="large" style="background: var(--green)"
+          >visible for large media</r-elm
         >
-        <r-element display="none none none block" padding="large" style="background: #dbdbd9"
-          >visible for xlarge media</r-element
+        <r-elm display="none none none block" padding="large" style="background: var(--gray)"
+          >visible for xlarge media</r-elm
         >
       </div>
 
@@ -271,50 +326,39 @@
 
       <h2>responsive order</h2>
 
-      <r-element margin-bottom="xlarge">
+      <r-elm margin-bottom="xlarge">
         specify element order for each break-point as needed. <br />
         accepted values: 1, 2, ... 12
-      </r-element>
+      </r-elm>
 
       <div class="demo-source">
         <r-grid gap="medium">
-          <r-grid col="12 4" order="1 2 3" padding="medium" style="background: #f3ffbf"> A </r-grid>
-          <r-grid col="12 4" order="2 3 1" padding="medium" style="background: #bfeeff"> B </r-grid>
-          <r-grid col="12 4" order="3 1 2" padding="medium" style="background: #ffbff9"> C </r-grid>
+          <r-grid col="12 4" order="1 2 3" padding="medium" style="background: var(--green)">
+            A
+          </r-grid>
+          <r-grid col="12 4" order="2 3 1" padding="medium" style="background: var(--blue)">
+            B
+          </r-grid>
+          <r-grid col="12 4" order="3 1 2" padding="medium" style="background: var(--red)">
+            C
+          </r-grid>
         </r-grid>
       </div>
 
       <hr />
 
-      <h2>responsive flex gap</h2>
+      <h2>responsive gap</h2>
 
       <div class="demo-source">
         <r-grid gap="small medium large xlarge">
           <r-grid col="4" padding="medium">
-            <r-element display="inline none">small</r-element>
-            <r-element display="none inline none">medium</r-element>
-            <r-element display="none none inline none">large</r-element>
-            <r-element display="none none none inline">xlarge</r-element> gap
+            <r-elm display="inline none">small</r-elm>
+            <r-elm display="none inline none">medium</r-elm>
+            <r-elm display="none none inline none">large</r-elm>
+            <r-elm display="none none none inline">xlarge</r-elm> gap
           </r-grid>
           <r-grid col="4"></r-grid>
           <r-grid col="4"></r-grid>
-        </r-grid>
-      </div>
-
-      <hr />
-
-      <h2>responsive cell padding</h2>
-
-      <div class="demo-source">
-        <r-grid gap="small medium large" padding="medium">
-          <r-grid col="4" padding="medium large xlarge">
-            <r-element display="inline none">medium</r-element>
-            <r-element display="none inline none">large</r-element>
-            <r-element display="none none inline">xlarge</r-element>
-            padding
-          </r-grid>
-          <r-grid col="4" padding="medium large xlarge"></r-grid>
-          <r-grid col="4" padding="medium large xlarge"></r-grid>
         </r-grid>
       </div>
 
@@ -324,9 +368,9 @@
 
       <div class="demo-source">
         <r-grid gap="medium">
-          <r-grid col="2 6 10" offset="10 6 2"></r-grid>
-          <r-grid col="6 6 6" offset="6 6 6"></r-grid>
-          <r-grid col="10 6 2" offset="2 6 10"></r-grid>
+          <r-grid col="6 8 10" skip-before="0 2 2" skip-after="6 2 0"></r-grid>
+          <r-grid col="4 6 6" skip-before="0 3 6" skip-after="8 3 0"></r-grid>
+          <r-grid col="2 2 2" skip-before="0 5 10" skip-after="10 5 0"></r-grid>
         </r-grid>
       </div>
 
@@ -335,24 +379,30 @@
       <h2>responsive font size</h2>
 
       <div class="demo-source">
-        <r-element font="small medium large xlarge">
-          <r-element display="inline none">small</r-element>
-          <r-element display="none inline none">medium</r-element>
-          <r-element display="none none inline none">large</r-element>
-          <r-element display="none none none inline">xlarge</r-element> font
-        </r-element>
+        <r-elm font="small medium large xlarge">
+          <r-elm display="inline none">small</r-elm>
+          <r-elm display="none inline none">medium</r-elm>
+          <r-elm display="none none inline none">large</r-elm>
+          <r-elm display="none none none inline">xlarge</r-elm> font
+        </r-elm>
       </div>
 
       <h2>responsive margin and padding</h2>
 
-      <r-grid class="demo-source">
-        <r-grid>
-          <r-element class="blue-box" margin="medium large xlarge" padding="medium">
-            <r-element display="inline none">medium</r-element>
-            <r-element display="none inline none">large</r-element>
-            <r-element display="none none inline">xlarge</r-element>
+      <r-grid>
+        <r-grid class="demo-source">
+          <r-elm padding="medium large xlarge" margin="medium" style="background: var(--green)">
+            <r-elm display="inline none">medium</r-elm>
+            <r-elm display="none inline none">large</r-elm>
+            <r-elm display="none none inline">xlarge</r-elm>
+            padding
+          </r-elm>
+          <r-elm margin="medium large xlarge" padding="medium" style="background: var(--blue)">
+            <r-elm display="inline none">medium</r-elm>
+            <r-elm display="none inline none">large</r-elm>
+            <r-elm display="none none inline">xlarge</r-elm>
             margin
-          </r-element>
+          </r-elm>
         </r-grid>
       </r-grid>
 
@@ -361,25 +411,19 @@
 
     <div id="article-demo">
       <h1>
-        <r-element font="large xlarge xxlarge" margin-bottom="medium large large"
-          >Examples</r-element
-        >
+        <r-elm font="large xlarge xxlarge" margin-bottom="medium large large">Examples</r-elm>
       </h1>
 
       <div class="demo-source">
         <r-grid gap="large xlarge xlarge">
-          <r-grid col="12 7 6" offset="0 5 6">
+          <r-grid col="12 7 6" skip-before="0 5 6">
             <h1>
-              <r-element font="large xlarge xxlarge" margin-bottom="medium- large- large-"
-                >Data Headline</r-element
-              >
+              <r-elm font="large xlarge xxlarge">Example Title</r-elm>
             </h1>
           </r-grid>
           <r-grid col="12 5 6" role="figure" aria-labelledby="caption">
             <img src="https://picsum.photos/id/555/640/400" />
-            <r-element id="caption" font="xsmall small" style="text-align: right"
-              >figure caption</r-element
-            >
+            <r-elm id="caption" font="xsmall small" style="text-align: right">figure caption</r-elm>
           </r-grid>
           <r-grid col="12 7 6" gap="large large xlarge">
             <r-grid order="1 2" gap="medium large large">
@@ -397,14 +441,14 @@
                 sollicitudin interdum diam. Curabitur sit amet massa ornare, ornare arcu et, porta
                 lectus. Maecenas dignissim elementum tellus.
               </p>
-              <r-element display="none block">
+              <r-elm display="none block">
                 Vivamus iaculis enim at posuere maximus. Curabitur a sem vel justo pharetra
                 efficitur non sit amet tellus. Vestibulum bibendum erat est, vitae congue orci
                 accumsan ut.
-              </r-element>
-              <r-element display="block none">
+              </r-elm>
+              <r-elm display="block none">
                 <a href="#test">read more </a>
-              </r-element>
+              </r-elm>
             </r-grid>
           </r-grid>
         </r-grid>
@@ -414,11 +458,9 @@
 
       <div class="demo-source">
         <r-grid gap="large xlarge xlarge">
-          <r-grid col="12 9" offset="0 3">
+          <r-grid col="12 9" skip-before="0 3">
             <h1>
-              <r-element font="large xlarge xxlarge" margin-bottom="medium- large- large-"
-                >Article Headline</r-element
-              >
+              <r-elm font="large xlarge xxlarge">Article Headline</r-elm>
             </h1>
           </r-grid>
           <r-grid col="12 3" text-align="left right">
@@ -428,8 +470,8 @@
           <r-grid col="12 9" gap="medium large large" font="small medium medium">
             <r-grid role="figure" aria-labelledby="image-caption">
               <img src="https://picsum.photos/id/352/960/600" />
-              <r-element id="image-caption" font="xsmall small" text-align="right"
-                >figure caption</r-element
+              <r-elm id="image-caption" font="xsmall small" text-align="right"
+                >figure caption</r-elm
               >
             </r-grid>
             <r-grid>

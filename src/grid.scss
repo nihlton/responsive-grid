@@ -1,5 +1,6 @@
 @use 'sass:map';
 @use 'sass:math';
+@use 'sass:list';
 
 $mediaSizes: (
   small: 0px,
@@ -7,29 +8,22 @@ $mediaSizes: (
   large: 1024px,
   xlarge: 1280px,
 );
-$dimensions:
-  'none', 'small', 'medium', 'large', 'xlarge', 'xxlarge', 'small-', 'medium-', 'large-', 'xlarge-',
-  'xxlarge-';
+$dimensions: 'none', 'small', 'medium', 'large', 'xlarge', 'xxlarge';
 $fonts: 'xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge';
 
 :host {
-  --dim-none: var(--grid-dim-none, 0px);
-  --dim-small: var(--grid-dim-small, 4px);
-  --dim-medium: var(--grid-dim-medium, 8px);
-  --dim-large: var(--grid-dim-large, 16px);
-  --dim-xlarge: var(--grid-dim-xlarge, 32px);
-  --dim-xxlarge: var(--grid-dim-xxlarge, 64px);
-  --dim-small-: var(--grid-dim-small-, -4px);
-  --dim-medium-: var(--grid-dim-medium-, -8px);
-  --dim-large-: var(--grid-dim-large-, -16px);
-  --dim-xlarge-: var(--grid-dim-xlarge-, -32px);
-  --dim-xxlarge-: var(--grid-dim-xxlarge-, -64px);
-  --font-xsmall: var(--grid-font-xsmall, 12px);
-  --font-small: var(--grid-font-small, 14px);
-  --font-medium: var(--grid-font-medium, 16px);
-  --font-large: var(--grid-font-large, 24px);
-  --font-xlarge: var(--grid-font-xlarge, 32px);
-  --font-xxlarge: var(--grid-font-xxlarge, 40px);
+  --d0: var(--grid-dim-none, 0px);
+  --d1: var(--grid-dim-small, 4px);
+  --d2: var(--grid-dim-medium, 8px);
+  --d3: var(--grid-dim-large, 16px);
+  --d4: var(--grid-dim-xlarge, 32px);
+  --d5: var(--grid-dim-xxlarge, 64px);
+  --f0: var(--grid-font-xsmall, 12px);
+  --f1: var(--grid-font-small, 14px);
+  --f2: var(--grid-font-medium, 16px);
+  --f3: var(--grid-font-large, 24px);
+  --f4: var(--grid-font-xlarge, 32px);
+  --f5: var(--grid-font-xxlarge, 40px);
   display: block;
   box-sizing: border-box !important;
 }
@@ -53,84 +47,102 @@ slot {
   box-sizing: border-box;
 }
 
-:host([data-cell]) {
+:host([r-cell]) {
   flex: auto;
 }
 
-:host([data-col-small]),
-:host([data-col-medium]),
-:host([data-col-large]),
-:host([data-col-xlarge]) {
+:host([r-c1]),
+:host([r-c2]),
+:host([r-c3]),
+:host([r-c4]) {
   flex: 100%;
-  max-width: calc(((var(--columns) / 12) * 100%) - var(--gap) * (calc((12 - var(--columns)) / 12)));
+  max-width: calc(((var(--rc) / 12) * 100%) - var(--gap) * (calc((12 - var(--rc)) / 12)));
 }
 
-:host([data-offset-small]),
-:host([data-offset-medium]),
-:host([data-offset-large]),
-:host([data-offset-xlarge]) {
-  margin-left: calc(((var(--offset) / 12) * 100%) + var(--gap) * (calc(var(--offset) / 12)));
+:host([r-sb1]),
+:host([r-sb2]),
+:host([r-sb3]),
+:host([r-sb4]) {
+  margin-left: calc(((var(--rsb) / 12) * 100%) + var(--gap) * (calc(var(--rsb) / 12)));
+}
+
+:host([r-sa1]),
+:host([r-sa2]),
+:host([r-sa3]),
+:host([r-sa4]) {
+  margin-right: calc(((var(--rsa) / 12) * 100%) + var(--gap) * (calc(var(--rsa) / 12)));
 }
 
 @each $mediaName, $mediaSize in $mediaSizes {
+  $mIndex: list.index(map.keys($mediaSizes), $mediaName);
+
   @media (min-width:  #{$mediaSize}) {
-    :host([data-text-align-#{$mediaName}]) {
+    :host([r-ta#{$mIndex}]) {
       text-align: var(--text-align-#{$mediaName});
     }
-    :host([data-display-#{$mediaName}]) {
+    :host([r-d#{$mIndex}]) {
       display: var(--display-#{$mediaName});
     }
 
     @each $font in $fonts {
-      :host([data-font-#{$mediaName}='#{$font}']) {
-        font-size: var(--font-#{$font});
+      $fIndex: list.index($fonts, $font);
+
+      :host([r-f#{$mIndex}='#{$fIndex}']) {
+        font-size: var(--f#{$fIndex});
       }
     }
     @each $dimension in $dimensions {
-      .row.gap-#{$mediaName}-#{$dimension} {
-        --gap: var(--dim-#{$dimension});
+      $dIndex: list.index($dimensions, $dimension);
+
+      .row.gap-#{$mediaName}-#{$dIndex} {
+        --gap: var(--d#{$dIndex});
       }
-      :host([data-padding-#{$mediaName}='#{$dimension}']) {
-        padding: var(--dim-#{$dimension});
+      :host([r-p#{$mIndex}='#{$dIndex}']) {
+        padding: var(--d#{$dIndex});
       }
-      :host([data-padding-top-#{$mediaName}='#{$dimension}']) {
-        padding-top: var(--dim-#{$dimension});
+      :host([r-pt#{$mIndex}='#{$dIndex}']) {
+        padding-top: var(--d#{$dIndex});
       }
-      :host([data-padding-left-#{$mediaName}='#{$dimension}']) {
-        padding-left: var(--dim-#{$dimension});
+      :host([r-pl#{$mIndex}='#{$dIndex}']) {
+        padding-left: var(--d#{$dIndex});
       }
-      :host([data-padding-bottom-#{$mediaName}='#{$dimension}']) {
-        padding-bottom: var(--dim-#{$dimension});
+      :host([r-pb#{$mIndex}='#{$dIndex}']) {
+        padding-bottom: var(--d#{$dIndex});
       }
-      :host([data-padding-right-#{$mediaName}='#{$dimension}']) {
-        padding-right: var(--dim-#{$dimension});
+      :host([r-pr#{$mIndex}='#{$dIndex}']) {
+        padding-right: var(--d#{$dIndex});
       }
-      :host([data-margin-#{$mediaName}='#{$dimension}']) {
-        margin: var(--dim-#{$dimension});
+      :host([r-m#{$mIndex}='#{$dIndex}']) {
+        margin: var(--d#{$dIndex});
       }
-      :host([data-margin-top-#{$mediaName}='#{$dimension}']) {
-        margin-top: var(--dim-#{$dimension});
+      :host([r-mt#{$mIndex}='#{$dIndex}']) {
+        margin-top: var(--d#{$dIndex});
       }
-      :host([data-margin-left-#{$mediaName}='#{$dimension}']) {
-        margin-left: var(--dim-#{$dimension});
+      :host([r-ml#{$mIndex}='#{$dIndex}']) {
+        margin-left: var(--d#{$dIndex});
       }
-      :host([data-margin-bottom-#{$mediaName}='#{$dimension}']) {
-        margin-bottom: var(--dim-#{$dimension});
+      :host([r-mb#{$mIndex}='#{$dIndex}']) {
+        margin-bottom: var(--d#{$dIndex});
       }
-      :host([data-margin-right-#{$mediaName}='#{$dimension}']) {
-        margin-right: var(--dim-#{$dimension});
+      :host([r-mr#{$mIndex}='#{$dIndex}']) {
+        margin-right: var(--d#{$dIndex});
       }
     }
 
     @for $i from 12 through 1 {
-      :host([data-order-#{$mediaName}='#{$i}']) {
+      :host([r-or#{$mIndex}='#{$i}']) {
         order: #{$i};
       }
-      :host([data-col-#{$mediaName}='#{$i}']) {
-        --columns: #{$i};
+      :host([r-c#{$mIndex}='#{$i}']) {
+        --rc: #{$i};
       }
-      :host([data-offset-#{$mediaName}='#{$i}']) {
-        --offset: #{$i};
+    }
+    @for $i from 11 through 0 {
+      :host([r-sb#{$mIndex}='#{$i}']) {
+        --rsb: #{$i};
+      }
+      :host([r-sa#{$mIndex}='#{$i}']) {
+        --rsa: #{$i};
       }
     }
   }

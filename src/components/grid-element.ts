@@ -1,20 +1,21 @@
 import sheet from '../grid-style';
 import {
-  ContainerClass,
   getClasses,
   getGridAttributeValue as getValues,
   getHostAttributes,
   isGridAttribute,
   ObservedGridAttributes as Attributes,
   getHostCSS,
+  gridAttrShort,
 } from '../util';
 import type { GridAttributeValues } from '../util';
 
 /**
  * @attr {string} text-align - set element's text alignment for each breakpoint
+ * @attr {string} skip-before - skip the given columns before the element for each breakpoint  (Integers)
+ * @attr {string} skip-after - skip the given columns after the element for each breakpoint  (Integers)
  * @attr {string} display - set element's display value for each breakpoint
  * @attr {string} padding - set element's padding for each breakpoint (Dimension values)
- * @attr {string} offset - set element's column offset for each breakpoint  (Integers)
  * @attr {string} order - set element's flex order for each breakpoint (Integers)
  * @attr {string} font - set element's font-size for each breakpoint (Font values)
  * @attr {string} col - set element's column spans for each breakpoint  (Integers)
@@ -45,8 +46,7 @@ export class GridElement extends HTMLElement {
   /**
    * @internal
    */
-  private readonly container = (): Element | null =>
-    this.shadowRoot?.querySelector(`.${ContainerClass}`) || null;
+  private readonly container = (): Element | null => this.shadowRoot?.firstElementChild || null;
 
   constructor() {
     super();
@@ -112,8 +112,8 @@ export class GridElement extends HTMLElement {
   }
 
   render() {
-    const classes = getClasses(Attributes, this.attr, getValues);
-    const hostAttributes = getHostAttributes(Attributes, this.attr, getValues);
+    const classes = getClasses(['row', 'gap'], this.attr, getValues);
+    const hostAttributes = getHostAttributes(Attributes, this.attr, getValues, gridAttrShort);
     const hostCSS = getHostCSS(['display', 'text-align'], this.attr, getValues);
 
     hostCSS.forEach(([attr, value]) => {
@@ -127,7 +127,7 @@ export class GridElement extends HTMLElement {
     });
 
     this.shadowRoot!.innerHTML = `
-      <div class="${ContainerClass} ${classes.join(' ')}"><slot></slot></div>
+      <div class="${classes.join(' ')}"><slot></slot></div>
     `;
   }
 }

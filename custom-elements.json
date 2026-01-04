@@ -52,6 +52,13 @@
               "type": {
                 "text": "string"
               },
+              "description": "set element's text alignment for each breakpoint",
+              "name": "text-align"
+            },
+            {
+              "type": {
+                "text": "string"
+              },
               "description": "set element's display value for each breakpoint",
               "name": "display"
             },
@@ -157,6 +164,13 @@
             }
           ],
           "attributes": [
+            {
+              "type": {
+                "text": "string"
+              },
+              "description": "set element's text alignment for each breakpoint",
+              "name": "text-align"
+            },
             {
               "type": {
                 "text": "string"

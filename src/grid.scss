@@ -1,5 +1,5 @@
-@use "sass:map";
-@use "sass:math";
+@use 'sass:map';
+@use 'sass:math';
 
 $mediaSizes: (
   small: 0px,
@@ -7,8 +7,10 @@ $mediaSizes: (
   large: 1024px,
   xlarge: 1280px,
 );
-$dimensions: "none", "small", "medium", "large", "xlarge", "xxlarge", "small-", "medium-", "large-", "xlarge-", "xxlarge-";
-$fonts: "xsmall", "small", "medium", "large", "xlarge", "xxlarge";
+$dimensions:
+  'none', 'small', 'medium', 'large', 'xlarge', 'xxlarge', 'small-', 'medium-', 'large-', 'xlarge-',
+  'xxlarge-';
+$fonts: 'xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge';
 
 :host {
   --dim-none: var(--grid-dim-none, 0px);
@@ -72,12 +74,15 @@ slot {
 
 @each $mediaName, $mediaSize in $mediaSizes {
   @media (min-width:  #{$mediaSize}) {
+    :host([data-text-align-#{$mediaName}]) {
+      text-align: var(--text-align-#{$mediaName});
+    }
     :host([data-display-#{$mediaName}]) {
       display: var(--display-#{$mediaName});
     }
 
     @each $font in $fonts {
-      :host([data-font-#{$mediaName}="#{$font}"]) {
+      :host([data-font-#{$mediaName}='#{$font}']) {
         font-size: var(--font-#{$font});
       }
     }
@@ -85,46 +90,46 @@ slot {
       .row.gap-#{$mediaName}-#{$dimension} {
         --gap: var(--dim-#{$dimension});
       }
-      :host([data-padding-#{$mediaName}="#{$dimension}"]) {
+      :host([data-padding-#{$mediaName}='#{$dimension}']) {
         padding: var(--dim-#{$dimension});
       }
-      :host([data-padding-top-#{$mediaName}="#{$dimension}"]) {
+      :host([data-padding-top-#{$mediaName}='#{$dimension}']) {
         padding-top: var(--dim-#{$dimension});
       }
-      :host([data-padding-left-#{$mediaName}="#{$dimension}"]) {
+      :host([data-padding-left-#{$mediaName}='#{$dimension}']) {
         padding-left: var(--dim-#{$dimension});
       }
-      :host([data-padding-bottom-#{$mediaName}="#{$dimension}"]) {
+      :host([data-padding-bottom-#{$mediaName}='#{$dimension}']) {
         padding-bottom: var(--dim-#{$dimension});
       }
-      :host([data-padding-right-#{$mediaName}="#{$dimension}"]) {
+      :host([data-padding-right-#{$mediaName}='#{$dimension}']) {
         padding-right: var(--dim-#{$dimension});
       }
-      :host([data-margin-#{$mediaName}="#{$dimension}"]) {
+      :host([data-margin-#{$mediaName}='#{$dimension}']) {
         margin: var(--dim-#{$dimension});
       }
-      :host([data-margin-top-#{$mediaName}="#{$dimension}"]) {
+      :host([data-margin-top-#{$mediaName}='#{$dimension}']) {
         margin-top: var(--dim-#{$dimension});
       }
-      :host([data-margin-left-#{$mediaName}="#{$dimension}"]) {
+      :host([data-margin-left-#{$mediaName}='#{$dimension}']) {
         margin-left: var(--dim-#{$dimension});
       }
-      :host([data-margin-bottom-#{$mediaName}="#{$dimension}"]) {
+      :host([data-margin-bottom-#{$mediaName}='#{$dimension}']) {
         margin-bottom: var(--dim-#{$dimension});
       }
-      :host([data-margin-right-#{$mediaName}="#{$dimension}"]) {
+      :host([data-margin-right-#{$mediaName}='#{$dimension}']) {
         margin-right: var(--dim-#{$dimension});
       }
     }
 
     @for $i from 12 through 1 {
-      :host([data-order-#{$mediaName}="#{$i}"]) {
+      :host([data-order-#{$mediaName}='#{$i}']) {
         order: #{$i};
       }
-      :host([data-col-#{$mediaName}="#{$i}"]) {
+      :host([data-col-#{$mediaName}='#{$i}']) {
         --columns: #{$i};
       }
-      :host([data-offset-#{$mediaName}="#{$i}"]) {
+      :host([data-offset-#{$mediaName}='#{$i}']) {
         --offset: #{$i};
       }
     }

@@ -1,4 +1,4 @@
-import sheet from "../grid-style";
+import sheet from '../grid-style';
 import {
   ContainerClass,
   getClasses,
@@ -7,10 +7,11 @@ import {
   isGridAttribute,
   ObservedGridAttributes as Attributes,
   getHostCSS,
-} from "../util";
-import type { GridAttributeValues } from "../util";
+} from '../util';
+import type { GridAttributeValues } from '../util';
 
 /**
+ * @attr {string} text-align - set element's text alignment for each breakpoint
  * @attr {string} display - set element's display value for each breakpoint
  * @attr {string} padding - set element's padding for each breakpoint (Dimension values)
  * @attr {string} offset - set element's column offset for each breakpoint  (Integers)
@@ -39,15 +40,17 @@ export class GridElement extends HTMLElement {
   /**
    * @internal
    */
-  private readonly mainSlot = (): HTMLSlotElement | null => this.shadowRoot?.querySelector("slot") || null;
+  private readonly mainSlot = (): HTMLSlotElement | null =>
+    this.shadowRoot?.querySelector('slot') || null;
   /**
    * @internal
    */
-  private readonly container = (): Element | null => this.shadowRoot?.querySelector(`.${ContainerClass}`) || null;
+  private readonly container = (): Element | null =>
+    this.shadowRoot?.querySelector(`.${ContainerClass}`) || null;
 
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
     this.shadowRoot!.adoptedStyleSheets = [sheet];
   }
 
@@ -61,11 +64,11 @@ export class GridElement extends HTMLElement {
     if (!slot || !container) return;
 
     const tenants = slot.assignedElements();
-    const isRow = tenants.some((el) => el.matches("r-grid"));
-    const isNowRow = this.attr.row !== "row" && isRow;
-    const noLongerRow = this.attr.row === "row" && !isRow;
+    const isRow = tenants.some((el) => el.matches('r-grid'));
+    const isNowRow = this.attr.row !== 'row' && isRow;
+    const noLongerRow = this.attr.row === 'row' && !isRow;
 
-    if (isNowRow) this.attr.row = "row";
+    if (isNowRow) this.attr.row = 'row';
     if (noLongerRow) delete this.attr.row;
     return isNowRow || noLongerRow;
   }
@@ -74,11 +77,11 @@ export class GridElement extends HTMLElement {
    * @internal
    */
   private detectCellChange() {
-    const isCell = this.parentElement?.matches("r-grid");
-    const isNowCell = this.attr.cell !== "cell" && isCell;
-    const noLongerCell = this.attr.cell === "cell" && !isCell;
+    const isCell = this.parentElement?.matches('r-grid');
+    const isNowCell = this.attr.cell !== 'cell' && isCell;
+    const noLongerCell = this.attr.cell === 'cell' && !isCell;
 
-    if (isNowCell) this.attr.cell = "cell";
+    if (isNowCell) this.attr.cell = 'cell';
     if (noLongerCell) delete this.attr.cell;
     return isNowCell || noLongerCell;
   }
@@ -98,7 +101,7 @@ export class GridElement extends HTMLElement {
   }
 
   connectedCallback() {
-    this.mainSlot()?.addEventListener("slotchange", () => {
+    this.mainSlot()?.addEventListener('slotchange', () => {
       if (this.detectRowChange()) this.render();
     });
 
@@ -111,7 +114,7 @@ export class GridElement extends HTMLElement {
   render() {
     const classes = getClasses(Attributes, this.attr, getValues);
     const hostAttributes = getHostAttributes(Attributes, this.attr, getValues);
-    const hostCSS = getHostCSS(["display"], this.attr, getValues);
+    const hostCSS = getHostCSS(['display', 'text-align'], this.attr, getValues);
 
     hostCSS.forEach(([attr, value]) => {
       if (value) this.style.setProperty(attr, value);
@@ -124,9 +127,9 @@ export class GridElement extends HTMLElement {
     });
 
     this.shadowRoot!.innerHTML = `
-      <div class="${ContainerClass} ${classes.join(" ")}"><slot></slot></div>
+      <div class="${ContainerClass} ${classes.join(' ')}"><slot></slot></div>
     `;
   }
 }
 
-customElements.define("r-grid", GridElement);
+customElements.define('r-grid', GridElement);

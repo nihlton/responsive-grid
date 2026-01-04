@@ -1,8 +1,15 @@
-import sheet from "../grid-style";
-import { getElemAttributeValue as getValues, getHostAttributes, isElemAttribute, ObservedElemAttributes as Attributes, getHostCSS } from "../util";
-import type { ElemAttributeValues } from "../util";
+import sheet from '../grid-style';
+import {
+  getElemAttributeValue as getValues,
+  getHostAttributes,
+  isElemAttribute,
+  ObservedElemAttributes as Attributes,
+  getHostCSS,
+} from '../util';
+import type { ElemAttributeValues } from '../util';
 
 /**
+ * @attr {string} text-align - set element's text alignment for each breakpoint
  * @attr {string} display - set element's display value for each breakpoint, space-separated
  * @attr {string} font - set element's font-size for each breakpoint, space-separated (Font values)
  * @attr {string} padding - set element's padding for each breakpoint, space-separated (Dimension values)
@@ -31,7 +38,7 @@ export class ResponsiveElement extends HTMLElement {
 
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
     this.shadowRoot!.adoptedStyleSheets = [sheet];
   }
 
@@ -48,7 +55,7 @@ export class ResponsiveElement extends HTMLElement {
 
   render() {
     const hostAttributes = getHostAttributes(Attributes, this.attr, getValues);
-    const hostCSS = getHostCSS(["display"], this.attr, getValues);
+    const hostCSS = getHostCSS(['display', 'text-align'], this.attr, getValues);
 
     hostCSS.forEach(([attr, value]) => {
       if (value) this.style.setProperty(attr, value);
@@ -64,4 +71,4 @@ export class ResponsiveElement extends HTMLElement {
   }
 }
 
-customElements.define("r-element", ResponsiveElement);
+customElements.define('r-element', ResponsiveElement);

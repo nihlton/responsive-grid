@@ -38,8 +38,8 @@
       hr {
         border: none;
         height: 1px;
-        margin: 2rem 0;
-        background: #aaa;
+        margin: 3rem 0;
+        background: #ccc;
       }
 
       img {
@@ -68,6 +68,31 @@
         background: white;
         box-shadow: 0 0 0 3px #0003;
       }
+
+      code {
+        background: #f6f6f6;
+        padding: 0.25em 0.5em;
+      }
+
+      pre {
+        width: 100%;
+        line-height: 1.5;
+        margin: 3em 0 6rem;
+
+        code.hljs {
+          padding: 2em !important;
+          border-radius: 1em;
+
+          scrollbar-color: #0001 transparent;
+          scrollbar-width: thin;
+        }
+      }
+
+      .blue-box {
+        background: #cee4f5;
+        outline: 1px solid #8dbce0;
+        min-height: 32px;
+      }
     </style>
   </head>
   <body>
@@ -76,12 +101,189 @@
         <r-element display="block none">mobile</r-element>
         <r-element display="none block none">tablet</r-element>
         <r-element display="none none block none">desktop</r-element>
+        <r-element display="none none none block">xl-desktop</r-element>
+      </div>
+
+      <h1><r-element font="large xlarge xxlarge" margin-bottom="medium large large">rezel Documentation</r-element></h1>
+
+      <div class="demo-grid">
+        <h2>resonsive attributes</h2>
+        <r-element margin-bottom="xlarge">
+          for any supported attribute, one may provide a value for each break-point <code>mobile</code> <code>tablet</code> <code>desktop</code>
+          <code>xl-desktop</code>. Omitted breakpoints will inherit from the last defined break-point.
+        </r-element>
+        <r-element margin-bottom="xlarge">
+          examples:<br />
+          <code>padding="medium" // medium padding for all break-points</code><br />
+          <code>margin-bottom="medium large" // medium bottom-margin on mobile, large for all others</code><br />
+        </r-element>
+
+        <r-element margin-bottom="xlarge">
+          <h3>&lt;r-grid&gt; attributes</h3>
+          <ul>
+            <li><code>display</code> - Any valid CSS Display value, (excluding multi-keyword syntax)</li>
+            <li><code>padding</code> - Dimensional values*</li>
+            <li><code>offset</code> - Number of columns to shift right</li>
+            <li><code>order</code> - Display order</li>
+            <li><code>font</code> - Font values*</li>
+            <li><code>col</code> - Number of columns to span</li>
+            <li><code>gap</code> - Space between elements, in Dimensional values</li>
+          </ul>
+        </r-element>
+
+        <r-element margin-bottom="xlarge">
+          <h3>&lt;r-element&gt; attributes</h3>
+          <ul>
+            <li><code>display</code> - Any valid CSS Display value, (excluding multi-keyword syntax)</li>
+            <li><code>padding</code> - Dimensional values*</li>
+            <li><code>offset</code> - Number of columns to shift right</li>
+            <li><code>margin</code> - Dimensional values*</li>
+            <li><code>font</code> - Font values*</li>
+            <li><code>margin-[side]</code> - top, left, bottom, right. Dimensional values*</li>
+            <li><code>padding-[side]</code> - top, left, bottom, right. Dimensional values*</li>
+          </ul>
+        </r-element>
+
+        <r-element margin-bottom="xlarge">
+          <h3>Dimensional values</h3>
+          <em>Note: Each non-zero value has <code>[value]-</code> counter-part with a negative value.</em>
+          <ul>
+            <li><code>none</code> - 0px</li>
+            <li><code>small</code> - 4px</li>
+            <li><code>medium</code> - 8px</li>
+            <li><code>large</code> - 16px</li>
+            <li><code>xlarge</code> - 32px</li>
+            <li><code>xxlarge</code> - 64px</li>
+          </ul>
+        </r-element>
+
+        <r-element margin-bottom="xlarge">
+          <h3>Font values</h3>
+          <ul>
+            <li><code>xsmall</code> - 12px</li>
+            <li><code>small</code> - 14px</li>
+            <li><code>medium</code> - 16px</li>
+            <li><code>large</code> - 24px</li>
+            <li><code>xlarge</code> - 32px</li>
+            <li><code>xxlarge</code> - 40px</li>
+          </ul>
+        </r-element>
+
+        <r-element margin-bottom="xlarge">
+          <h3>Note: Dimensional and Font values can be overwritten</h3>
+          <p>in your css, add definitions for <code>--grid-dim-[value]</code>, or <code>--grid-font-[value]</code></p>
+          <pre><code class="language=css">:root {
+  --grid-dim-xxlarge: 48px;
+  --grid-dim-xxlarge-: -48px;  // negative counter-part
+  --grid-font-xsmall: 14px;
+  --grid-font-small: 18px;
+  --grid-font-medium: 20px;
+}</code></pre>
+        </r-element>
+
+        <hr />
+
+        <h2>responsive display</h2>
+
+        <r-element margin-bottom="xlarge">
+          examples:<br />
+          <code>display="block none" // display mobile only</code><br />
+          <code>display="block none block" // hide from tablet</code><br />
+        </r-element>
+
+        <div class="demo-source">
+          <r-element display="block none" padding="large" style="background: #ffbff9">visible for small media</r-element>
+          <r-element display="none block none" padding="large" style="background: #bfeeff">visible for medium media</r-element>
+          <r-element display="none none block none" padding="large" style="background: #f3ffbf">visible for large media</r-element>
+          <r-element display="none none none block" padding="large" style="background: #dbdbd9">visible for xlarge media</r-element>
+        </div>
+
+        <hr />
+
+        <h2>responsive order</h2>
+
+        <r-element margin-bottom="xlarge">
+          specify element order for each break-point as needed. <br />
+          accepted values: 1, 2, ... 12
+        </r-element>
+
+        <r-grid class="demo-source" gap="medium">
+          <r-grid col="12 4" order="1 2 3" padding="medium" style="background: #f3ffbf"> A </r-grid>
+          <r-grid col="12 4" order="2 3 1" padding="medium" style="background: #bfeeff"> B </r-grid>
+          <r-grid col="12 4" order="3 1 2" padding="medium" style="background: #ffbff9"> C </r-grid>
+        </r-grid>
+        <hr />
+
+        <h2>responsive flex gap</h2>
+
+        <r-grid class="demo-source" gap="small medium large">
+          <r-grid col="4" padding="medium">
+            <r-element display="inline none">small</r-element>
+            <r-element display="none inline none">medium</r-element>
+            <r-element display="none none inline none">large</r-element> gap
+          </r-grid>
+          <r-grid col="4"></r-grid>
+          <r-grid col="4"></r-grid>
+        </r-grid>
+
+        <hr />
+
+        <h2>responsive cell padding</h2>
+
+        <r-grid class="demo-source" gap="small medium large" padding="medium">
+          <r-grid col="4" padding="medium large xlarge">
+            <r-element display="inline none">medium</r-element>
+            <r-element display="none inline none">large</r-element>
+            <r-element display="none none inline none">xlarge</r-element> padding
+          </r-grid>
+          <r-grid col="4" padding="medium large xlarge"></r-grid>
+          <r-grid col="4" padding="medium large xlarge"></r-grid>
+        </r-grid>
+
+        <hr />
+
+        <h2>responsive column span and offset</h2>
+
+        <r-grid class="demo-source" gap="medium">
+          <r-grid col="2 6 10" offset="10 6 2"></r-grid>
+          <r-grid col="6 6 6" offset="6 6 6"></r-grid>
+          <r-grid col="10 6 2" offset="2 6 10"></r-grid>
+        </r-grid>
+
+        <hr />
+
+        <h2>responsive font size</h2>
+
+        <div class="demo-source">
+          <r-element font="small medium large xlarge">
+            <r-element display="inline none">small</r-element>
+            <r-element display="none inline none">medium</r-element>
+            <r-element display="none none inline none">large</r-element>
+            <r-element display="none none none inline">xlarge</r-element> font
+          </r-element>
+        </div>
+
+        <h2>responsive margin and padding</h2>
+
+        <r-grid class="demo-source">
+          <r-grid>
+            <r-element class="blue-box" margin="medium large xlarge" padding="medium">
+              <r-element display="inline none">medium</r-element>
+              <r-element display="none inline none">large</r-element>
+              <r-element display="none none inline none">xlarge</r-element> margin
+            </r-element>
+          </r-grid>
+        </r-grid>
+
+        <hr />
       </div>
 
       <div id="article-demo">
-        <r-grid gap="large xlarge xlarge">
+        <h1><r-element font="large xlarge xxlarge" margin-bottom="medium large large">Examples</r-element></h1>
+
+        <r-grid class="demo-source" gap="large xlarge xlarge">
           <r-grid col="12 7 6" offset="0 5 6">
-            <h1><r-element font="large xlarge xxlarge" margin-bottom="medium- large- large-">Headline</r-element></h1>
+            <h1><r-element font="large xlarge xxlarge" margin-bottom="medium- large- large-">Data Headline</r-element></h1>
           </r-grid>
           <r-grid col="12 5 6" role="figure" aria-labelledby="caption">
             <img src="https://picsum.photos/id/555/640/400" />
@@ -100,16 +302,14 @@
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut finibus turpis a neque consequat, et pretium eros tempor. Praesent orci
                 massa, tempus ut est id, sollicitudin interdum diam. Curabitur sit amet massa ornare, ornare arcu et, porta lectus. Maecenas dignissim
-                elementum tellus. Sed sit amet pellentesque eros. Nunc id purus odio. In hac habitasse platea dictumst. Mauris vel ligula feugiat,
-                pretium leo eu, gravida augue.
+                elementum tellus.
               </p>
               <r-element display="none block">
                 Vivamus iaculis enim at posuere maximus. Curabitur a sem vel justo pharetra efficitur non sit amet tellus. Vestibulum bibendum erat
-                est, vitae congue orci accumsan ut. Duis vitae leo et nunc maximus elementum id non turpis. Pellentesque lorem quam, cursus vel
-                ultricies sed, ornare quis nulla.
+                est, vitae congue orci accumsan ut.
               </r-element>
               <r-element display="block none">
-                <a href="#test"> read more </a>
+                <a href="#test">read more </a>
               </r-element>
             </r-grid>
           </r-grid>
@@ -117,17 +317,18 @@
 
         <hr />
 
-        <r-grid gap="large xlarge xlarge">
+        <r-grid class="demo-source" gap="large xlarge xlarge">
           <r-grid col="12 9" offset="0 3">
-            <h1><r-element font="large xlarge xxlarge" margin-bottom="medium- large- large-">Headline</r-element></h1>
+            <h1><r-element font="large xlarge xxlarge" margin-bottom="medium- large- large-">Article Headline</r-element></h1>
           </r-grid>
           <r-grid col="12 3" style="text-align: right">
-            <r-grid display="none block"> Jan 1st, 2026<br />2:24 PM </r-grid>
-            <r-grid display="block none"> January 1, 2026, 2:24 PM </r-grid>
+            <r-grid display="none block">Jan 1st, 2026<br />2:24 PM</r-grid>
+            <r-grid display="block none">January 1, 2026, 2:24 PM</r-grid>
           </r-grid>
           <r-grid col="12 9" gap="medium large large" font="small medium medium">
-            <r-grid>
+            <r-grid role="figure" aria-labelledby="image-caption">
               <img src="https://picsum.photos/id/352/960/600" />
+              <r-element id="image-caption" font="xsmall small" style="text-align: right">figure caption</r-element>
             </r-grid>
             <r-grid>
               <p>
@@ -145,153 +346,52 @@
               </p>
             </r-grid>
             <r-grid display="block none">
-              <a href="#test"> read more </a>
+              <a href="#test">read more </a>
             </r-grid>
           </r-grid>
-        </r-grid>
-      </div>
-
-      <hr />
-
-      <div class="demo-grid">
-        <r-grid gap="large xlarge xlarge">
-          <r-grid col="12 7 6" offset="0 5 6" padding="medium" font="large xlarge xxlarge">Headline</r-grid>
-          <r-grid col="12 5 6" gap="medium">
-            <r-grid col="12" style="aspect-ratio: 1.6" padding="medium">image asset</r-grid>
-            <r-grid col="12" padding="medium" font="small">image caption</r-grid>
-          </r-grid>
-          <r-grid col="12 7 6" gap="large  ">
-            <r-grid col="12" order="1 2" gap="medium large large">
-              <r-grid col="3 3 2" style="aspect-ratio: 1.6" padding="medium">thumb</r-grid>
-              <r-grid col="3 3 2" style="aspect-ratio: 1.6" padding="medium">thumb</r-grid>
-              <r-grid col="3 3 2" style="aspect-ratio: 1.6" padding="medium">thumb</r-grid>
-              <r-grid col="3 3 2" style="aspect-ratio: 1.6" padding="medium">thumb</r-grid>
-              <r-grid col="3 3 2" style="aspect-ratio: 1.6" padding="medium">thumb</r-grid>
-              <r-grid col="3 3 2" style="aspect-ratio: 1.6" padding="medium">thumb</r-grid>
-            </r-grid>
-            <r-grid col="12" order="2 1" gap="medium large large" font="small medium medium">
-              <r-grid col="12" style="height: 12em" padding="medium">text copy. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</r-grid>
-              <r-grid col="12" display="none block" style="height: 6em" padding="medium">
-                'below the fold' copy. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </r-grid>
-            </r-grid>
-          </r-grid>
-        </r-grid>
-
-        <hr />
-
-        <r-grid gap="large xlarge xlarge">
-          <r-grid col="12 9" offset="0 3" padding="medium" font="large xlarge xxlarge">headline</r-grid>
-          <r-grid col="12 3"><r-grid padding="medium">date line</r-grid></r-grid>
-          <r-grid col="12 9" gap="large">
-            <r-grid col="12" style="aspect-ratio: 1.6" padding="medium">image asset</r-grid>
-            <r-grid col="12" style="height: 12em" padding="medium" font="small medium medium">
-              text copy. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </r-grid>
-            <r-grid col="12" display="none block" style="height: 6em" padding="medium">
-              'below the fold' copy. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </r-grid>
-          </r-grid>
-        </r-grid>
-
-        <hr />
-
-        <r-grid gap="small medium large" padding="medium">
-          <r-grid col="12 8 3"></r-grid>
-          <r-grid col="12 4 3"></r-grid>
-          <r-grid col="12 8 3"></r-grid>
-          <r-grid col="12 4 3"></r-grid>
-        </r-grid>
-
-        <hr />
-
-        <r-grid gap="small medium large" padding="medium">
-          <r-grid col="4" padding="medium" display="block none" order="1 1 2">small gap</r-grid>
-          <r-grid col="4" padding="medium" display="none block" order="2 2 2">medium gap</r-grid>
-          <r-grid col="4" padding="medium" display="none none block" order="3 3 3">large gap</r-grid>
-          <r-grid col="4" padding="medium" order="2 1 1"></r-grid>
-          <r-grid col="4" padding="medium" order="3 3 2"></r-grid>
-        </r-grid>
-
-        <hr />
-
-        <r-grid gap="small medium large" padding="medium">
-          <r-grid col="4" padding="medium large xlarge" display="block none" order="1 1 2">medium padding</r-grid>
-          <r-grid col="4" padding="medium large xlarge" display="none block none" order="2 2 2">large padding</r-grid>
-          <r-grid col="4" padding="medium large xlarge" display="none none block" order="3 3 3">xlarge padding</r-grid>
-          <r-grid col="4" padding="medium large xlarge" order="2 1 1"></r-grid>
-          <r-grid col="4" padding="medium large xlarge" order="3 3 2"></r-grid>
-        </r-grid>
-
-        <hr />
-        <r-grid gap="medium" padding="medium">
-          <r-grid col="12 4" order="3 2 1" padding="medium" style="background: #f3ffbf">
-            <r-element display="none block">small last</r-element>
-            <r-element display="block none"><strong>small last</strong></r-element>
-            <r-element display="block none block">medium second</r-element>
-            <r-element display="none block none"><strong>medium second</strong></r-element>
-            <r-element display="block block none">large first</r-element>
-            <r-element display="none none block"><strong>large first</strong></r-element>
-          </r-grid>
-          <r-grid col="12 4" order="2 1 3" padding="medium" style="background: #bfeeff">
-            <r-element display="none block">small second</r-element>
-            <r-element display="block none"><strong>small second</strong></r-element>
-            <r-element display="block none block">medium first</r-element>
-            <r-element display="none block none"><strong>medium first</strong></r-element>
-            <r-element display="block block none">large last</r-element>
-            <r-element display="none none block"><strong>large last</strong></r-element>
-          </r-grid>
-          <r-grid col="12 4" order="1 3 2" padding="medium" style="background: #ffbff9">
-            <r-element display="none block">small first</r-element>
-            <r-element display="block none"><strong>small first</strong></r-element>
-            <r-element display="block none block">medium last</r-element>
-            <r-element display="none block none"><strong>medium last</strong></r-element>
-            <r-element display="block block none">large second</r-element>
-            <r-element display="none none block"><strong>large second</strong></r-element>
-          </r-grid>
-          <r-grid col="12" display="block none none" padding="medium" style="background: #ffbff9">visible for small media</r-grid>
-          <r-grid col="12" display="none block none" padding="medium" style="background: #bfeeff">visible for medium media</r-grid>
-          <r-grid col="12" display="none none block" padding="medium" style="background: #f3ffbf">visible for large media</r-grid>
-        </r-grid>
-
-        <hr />
-
-        <r-grid gap="medium" padding="medium">
-          <r-grid col="3" offset="3"></r-grid>
-          <r-grid col="3">&nbsp;</r-grid>
-          <r-grid col="3">&nbsp;</r-grid>
-
-          <r-grid col="3" offset="6"></r-grid>
-          <r-grid col="3">&nbsp;</r-grid>
-
-          <r-grid col="3" offset="9">&nbsp;</r-grid>
-        </r-grid>
-        <hr />
-        <r-grid gap="medium" padding="medium">
-          <r-grid col="4 2">&nbsp;</r-grid>
-          <r-grid col="4 2">&nbsp;</r-grid>
-          <r-grid col="4 2">&nbsp;</r-grid>
-          <r-grid col="6 3">&nbsp;</r-grid>
-          <r-grid col="6 3">&nbsp;</r-grid>
-          <r-grid col="2 1">&nbsp;</r-grid>
-          <r-grid col="4 2">&nbsp;</r-grid>
-          <r-grid col="6 3">&nbsp;</r-grid>
-          <r-grid col="12 6">&nbsp;</r-grid>
-          <r-grid col="12 6 3">&nbsp;</r-grid>
-          <r-grid col="12 6 3">&nbsp;</r-grid>
-          <r-grid col="12 6 3">&nbsp;</r-grid>
-          <r-grid col="12 6 3">&nbsp;</r-grid>
-        </r-grid>
-
-        <hr />
-
-        <r-grid gap="small medium xlarge" padding="medium large xlarge">
-          <r-grid col="12 6 4" padding="medium">test1</r-grid>
-          <r-grid col="6 3 4" padding="medium medium xlarge">test2</r-grid>
-          <r-grid col="6 3 4" padding="medium">test3</r-grid>
         </r-grid>
       </div>
     </div>
     <script type="module" src="/src/index.ts"></script>
+    <link
+      as="style"
+      rel="preload"
+      href="https://unpkg.com/@highlightjs/cdn-assets@11.11.1/styles/stackoverflow-light.min.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+      media="(prefers-color-scheme: light)"
+    />
+
+    <link
+      as="style"
+      rel="preload"
+      href="https://unpkg.com/@highlightjs/cdn-assets@11.11.1/styles/stackoverflow-dark.min.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+      media="(prefers-color-scheme: dark)"
+    />
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.11.1/highlight.min.js"></script>
+    <script>
+      const escape = (html) => html.replace(/[&<>"']/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[m]);
+      function dedent(element) {
+        const rawValue = element.outerHTML;
+        const [line1, ...lines] = rawValue.split("\n");
+
+        const minIndent = lines.reduce((min, line) => {
+          if (line.trim().length === 0) return min;
+          const match = line.match(/^(\s*)/);
+          const count = match ? match[0].length : 0;
+          return Math.min(min, count);
+        }, Infinity);
+
+        // 3. Strip that amount from every line and join back
+        return [line1, ...lines.map((line) => line.slice(minIndent))].join("\n").trim();
+      }
+
+      document.querySelectorAll(".demo-source").forEach((node) => {
+        const preEl = document.createElement("pre");
+        preEl.innerHTML = `<code class="language-xml">${escape(dedent(node))}</code>`;
+        node.after(preEl);
+      });
+      hljs.highlightAll();
+    </script>
   </body>
 </html>

@@ -11,23 +11,23 @@ $dimensions: "none", "small", "medium", "large", "xlarge", "xxlarge", "small-", 
 $fonts: "xsmall", "small", "medium", "large", "xlarge", "xxlarge";
 
 :host {
-  --dim-none: 0px;
-  --dim-small: 4px;
-  --dim-medium: 8px;
-  --dim-large: 16px;
-  --dim-xlarge: 32px;
-  --dim-xxlarge: 64px;
-  --dim-small-: -4px;
-  --dim-medium-: -8px;
-  --dim-large-: -16px;
-  --dim-xlarge-: -32px;
-  --dim-xxlarge-: -64px;
-  --font-xsmall: 12px;
-  --font-small: 14px;
-  --font-medium: 16px;
-  --font-large: 24px;
-  --font-xlarge: 32px;
-  --font-xxlarge: 40px;
+  --dim-none: var(--grid-dim-none, 0px);
+  --dim-small: var(--grid-dim-small, 4px);
+  --dim-medium: var(--grid-dim-medium, 8px);
+  --dim-large: var(--grid-dim-large, 16px);
+  --dim-xlarge: var(--grid-dim-xlarge, 32px);
+  --dim-xxlarge: var(--grid-dim-xxlarge, 64px);
+  --dim-small-: var(--grid-dim-small-, -4px);
+  --dim-medium-: var(--grid-dim-medium-, -8px);
+  --dim-large-: var(--grid-dim-large-, -16px);
+  --dim-xlarge-: var(--grid-dim-xlarge-, -32px);
+  --dim-xxlarge-: var(--grid-dim-xxlarge-, -64px);
+  --font-xsmall: var(--grid-font-xsmall, 12px);
+  --font-small: var(--grid-font-small, 14px);
+  --font-medium: var(--grid-font-medium, 16px);
+  --font-large: var(--grid-font-large, 24px);
+  --font-xlarge: var(--grid-font-xlarge, 32px);
+  --font-xxlarge: var(--grid-font-xxlarge, 40px);
   display: block;
   box-sizing: border-box !important;
 }

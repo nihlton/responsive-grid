@@ -47,17 +47,18 @@
         }
       }
 
-      hr {
-        border: none;
-        height: 1px;
-        margin: 3rem 0;
-        background: color-mix(in srgb, var(--text) 20%, transparent);
-      }
-
       img {
         max-width: 100%;
       }
-
+      .article-demo,
+      .demo-grid {
+        > hr {
+          border: none;
+          height: 1px;
+          margin: 3rem 0;
+          background: color-mix(in srgb, var(--text) 20%, transparent);
+        }
+      }
       .demo-grid {
         r-grid:has(> r-grid) {
           background: none;
@@ -73,12 +74,12 @@
       }
       .view {
         position: fixed;
-        bottom: 0px;
-        right: 0px;
+        bottom: 1em;
+        left: 2em;
         padding: 0.25em 1em 0.25em;
-        border-radius: 1em 0 0 0;
-        background: var(--bg);
-        box-shadow: 0 0 0 3px color-mix(in srgb, var(--text) 20%, transparent);
+        border-radius: 1em;
+        background: var(--text);
+        color: var(--bg);
       }
 
       code {
@@ -232,7 +233,7 @@
           <li><code>order</code> Display order</li>
           <li><code>font</code> Font size in font-value*</li>
           <li><code>col</code> Number of columns to span</li>
-          <li><code>gap</code> Space between elements, in Dimensional values</li>
+          <li><code>gap</code> Space between elements, in dimensional-values*</li>
         </ul>
       </r-elm>
 
@@ -278,22 +279,22 @@
       <r-elm margin-bottom="xlarge">
         <h3>Note: You can customize Dimensional and Font values</h3>
         <p>
-          in your css, add definitions for <code>--grid-dim-[value]</code>, or
-          <code>--grid-font-[value]</code>
+          in your css, add definitions for <code>--rezel-dim-[value]</code>, or
+          <code>--rezel-font-[value]</code>
         </p>
         <pre><code class="language=css">:root {
-  --grid-dim-none: 0px;
-  --grid-dim-small: 4px;
-  --grid-dim-medium: 8px;
-  --grid-dim-large: 16px;
-  --grid-dim-xlarge: 32px;
-  --grid-dim-xxlarge: 64px;
-  --grid-font-xsmall: 12px;
-  --grid-font-small: 14px;
-  --grid-font-medium: 16px;
-  --grid-font-large: 24px;
-  --grid-font-xlarge: 32px;
-  --grid-font-xxlarge: 40px;
+  --rezel-dim-none: 0px;
+  --rezel-dim-small: 4px;
+  --rezel-dim-medium: 8px;
+  --rezel-dim-large: 16px;
+  --rezel-dim-xlarge: 32px;
+  --rezel-dim-xxlarge: 64px;
+  --rezel-font-xsmall: 12px;
+  --rezel-font-small: 14px;
+  --rezel-font-medium: 16px;
+  --rezel-font-large: 24px;
+  --rezel-font-xlarge: 32px;
+  --rezel-font-xxlarge: 40px;
 }</code></pre>
       </r-elm>
 

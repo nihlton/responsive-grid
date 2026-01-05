@@ -1,7 +1,7 @@
 {
   "name": "rezel",
   "description": "custom elements with responsive attributes",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "files": [
     "dist"

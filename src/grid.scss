@@ -12,18 +12,18 @@ $dimensions: 'none', 'small', 'medium', 'large', 'xlarge', 'xxlarge';
 $fonts: 'xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge';
 
 :host {
-  --d0: var(--grid-dim-none, 0px);
-  --d1: var(--grid-dim-small, 4px);
-  --d2: var(--grid-dim-medium, 8px);
-  --d3: var(--grid-dim-large, 16px);
-  --d4: var(--grid-dim-xlarge, 32px);
-  --d5: var(--grid-dim-xxlarge, 64px);
-  --f0: var(--grid-font-xsmall, 12px);
-  --f1: var(--grid-font-small, 14px);
-  --f2: var(--grid-font-medium, 16px);
-  --f3: var(--grid-font-large, 24px);
-  --f4: var(--grid-font-xlarge, 32px);
-  --f5: var(--grid-font-xxlarge, 40px);
+  --d0: var(--rezel-dim-none, 0px);
+  --d1: var(--rezel-dim-small, 4px);
+  --d2: var(--rezel-dim-medium, 8px);
+  --d3: var(--rezel-dim-large, 16px);
+  --d4: var(--rezel-dim-xlarge, 32px);
+  --d5: var(--rezel-dim-xxlarge, 64px);
+  --f0: var(--rezel-font-xsmall, 12px);
+  --f1: var(--rezel-font-small, 14px);
+  --f2: var(--rezel-font-medium, 16px);
+  --f3: var(--rezel-font-large, 24px);
+  --f4: var(--rezel-font-xlarge, 32px);
+  --f5: var(--rezel-font-xxlarge, 40px);
   display: block;
   box-sizing: border-box !important;
 }
@@ -49,6 +49,10 @@ slot {
 
 :host([r-cell]) {
   flex: auto;
+}
+
+::slotted(hr) {
+  width: 100%;
 }
 
 :host([r-c1]),

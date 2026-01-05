@@ -32,29 +32,17 @@ export const ObservedGridAttributes = [
   'font',
 ] as const;
 export const MediaSizes = ['small', 'medium', 'large', 'xlarge'] as const;
-export const DimensionSizes = [
-  'none',
-  'small',
-  'medium',
-  'large',
-  'xlarge',
-  'xxlarge',
-  'small-',
-  'medium-',
-  'large-',
-  'xlarge-',
-  'xxlarge-',
-] as const;
+export const DimensionSizes = ['none', 'small', 'medium', 'large', 'xlarge', 'xxlarge'] as const;
 export const DisplayValues = [
+  'none',
   'block',
+  'flex',
+  'grid',
   'inline',
   'inline-block',
-  'flex',
   'inline-flex',
-  'grid',
   'inline-grid',
   'flow-root',
-  'none',
   'contents',
   'table',
   'table-row',

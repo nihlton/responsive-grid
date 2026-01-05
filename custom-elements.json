@@ -9,6 +9,14 @@
       "exports": [
         {
           "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/types"
+          }
+        },
+        {
+          "kind": "js",
           "name": "GridElement",
           "declaration": {
             "name": "GridElement",
@@ -24,6 +32,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",

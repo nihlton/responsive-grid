@@ -27,6 +27,9 @@ $fonts: 'xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge';
   display: block;
   box-sizing: border-box !important;
 }
+:host:not(:defined) {
+  display: none;
+}
 
 slot {
   display: contents !important;
@@ -89,14 +92,14 @@ slot {
     }
 
     @each $font in $fonts {
-      $fIndex: list.index($fonts, $font);
+      $fIndex: list.index($fonts, $font) - 1;
 
       :host([r-f#{$mIndex}='#{$fIndex}']) {
         font-size: var(--f#{$fIndex});
       }
     }
     @each $dimension in $dimensions {
-      $dIndex: list.index($dimensions, $dimension);
+      $dIndex: list.index($dimensions, $dimension) - 1;
 
       .row.gap-#{$mediaName}-#{$dIndex} {
         --gap: var(--d#{$dIndex});

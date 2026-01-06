@@ -1,10 +1,11 @@
 {
   "name": "rezel",
   "description": "custom elements with responsive attributes",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "./custom-elements.json"
   ],
   "main": "./dist/rezel.cjs.js",
   "module": "./dist/rezel.es.js",
